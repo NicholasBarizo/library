@@ -13,10 +13,11 @@ function Book(title, author, pages, read){
   }
 }
 
-let library = [['book', 'joe', '42'], ['otherbook', 'mama', '19']];
+let library = [['Book1', 'Author1', '42', 'read'], ['Book2', 'Author2', '19', 'unread']];
 
 function addToLibrary(){
-  
+  let form = document.getElementById("addBook");
+  addRow([form.elements[0].value, form.elements[1].value, form.elements[2].value, form.elements[3].checked]);
 }
 
 function displayBooks(){
@@ -25,11 +26,41 @@ function displayBooks(){
     bookTable.appendChild(document.createTextNode('EMPTY'));
   }
   else{
-    library.forEach((book, index) =>{
-      let row = document.getElementById('bookTable').insertRow(index);
-      book.forEach((data, bookIndex) =>{
-        row.insertCell(bookIndex).innerHTML = data;
-      });
+    let bookTable = document.getElementById('bookTable');
+    let fieldNameRow = bookTable.insertRow(0);
+    fieldNameRow.classList.add('tableFieldName')
+    fieldNameRow.insertCell(0).appendChild(document.createTextNode('Book Title'));
+    fieldNameRow.insertCell(1).appendChild(document.createTextNode('Author'));
+    fieldNameRow.insertCell(2).appendChild(document.createTextNode('Pages'));
+    fieldNameRow.insertCell(3).appendChild(document.createTextNode('Status'));
+    library.forEach((book) =>{
+      addRow(book)
     });
   }
 }
+
+function addRow(book){
+  let bookTable = document.getElementById('bookTable');
+  rowCount = bookTable.rows.length;
+  let row = bookTable.insertRow(rowCount);
+  for(i = 0; i<=3; i++){
+    if(i == 3){
+      if(book[i] == false){
+        row.insertCell(i).innerHTML = 'Unread'
+      }
+      else{
+        console.log(book);
+        row.insertCell(i).innerHTML = 'Read'
+      }
+    }
+    else if(book[i] === ''){
+      row.insertCell(i).innerHTML = '?';
+      console.log(book)
+    }
+    else{
+      row.insertCell(i).innerHTML = book[i] ;
+    }
+  }
+}
+
+displayBooks();
