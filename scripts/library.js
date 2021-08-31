@@ -18,6 +18,10 @@ let library = [['Book1', 'Author1', '42', 'read'], ['Book2', 'Author2', '19', 'u
 function addToLibrary(){
   let form = document.getElementById("addBook");
   addRow([form.elements[0].value, form.elements[1].value, form.elements[2].value, form.elements[3].checked]);
+  console.log(document.getElementsByClassName('libraryInput'))
+  document.getElementById('book').value = '';
+  document.getElementById('author').value = '';
+  document.getElementById('pages').value = '';
 }
 
 function displayBooks(){
@@ -49,13 +53,11 @@ function addRow(book){
         row.insertCell(i).innerHTML = 'Unread'
       }
       else{
-        console.log(book);
         row.insertCell(i).innerHTML = 'Read'
       }
     }
     else if(book[i] === ''){
       row.insertCell(i).innerHTML = '?';
-      console.log(book)
     }
     else{
       row.insertCell(i).innerHTML = book[i] ;
